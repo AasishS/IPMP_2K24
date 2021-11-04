@@ -1,1 +1,55 @@
 
+
+#include <bits/stdc++.h>
+using namespace std;
+
+int binsearch(int arr[],int l,int r,int k)
+{
+    if(r>=l)
+    {
+        int mid= l+ (r-l)/2;
+        if(k== arr[mid]) 
+          return mid;
+        if(k> arr[mid])
+          return binsearch(arr ,mid+1, r, k );
+        if(k < arr[mid])
+          return binsearch(arr, l,mid-1 , k );
+    }
+    else
+      return -1;
+}
+
+int search(int arr[],int l,int size,int k)
+{
+    int i=0;
+    for(i=0; i<size;i++){
+      if(arr[i]>arr[i+1])
+        break;
+    }
+    if(k>=arr[l] && k<=arr[i]){
+       int x=binsearch(arr,l,i,k);
+       return x;
+    }
+    if(k<=arr[size] && k<=arr[i]){
+      int y=binsearch(arr,i+1,size,k);
+      return y;
+    }
+    
+}
+
+int main()
+{
+    int arr[] = {11,12,13,15,8,9,10 };int k;
+	int size = sizeof(arr)/sizeof(arr[0]);
+	cout<<"Array: ";
+    for(int i=0;i<size;i++)
+      cout<< arr[i]<<" ";
+	 
+	cout<<"Enter the element: "; cin>>k;
+	int x = search(arr, 0, size-1, k);
+	if (x!= -1)
+		cout << "Index: " << x << endl;
+	else
+		cout << "Element not preseent";
+return 0;		
+}
